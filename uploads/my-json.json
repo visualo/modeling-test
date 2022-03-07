@@ -1,0 +1,163 @@
+{
+    "nodes": [
+        {
+            "key": "A",
+            "type": "INPUT",
+            "transformObject": {
+                "tableName": "users",
+                "fields": [
+                    "id",
+                    "name",
+                    "age",
+                    "service"
+                ]
+            }
+        },
+        {
+            "key": "B",
+            "type": "FILTER",
+            "transformObject": [
+                {
+                    "variable_field_name": "age",
+                    "joinOperator": "AND",
+                    "operations": [
+                        {
+                            "operator": ">",
+                            "value": "18"
+                        }
+                    ]
+                },
+                {
+                    "variable_field_name": "age",
+                    "joinOperator": "AND",
+                    "operations": [
+                        {
+                            "operator": "<",
+                            "value": "32"
+                        }
+                    ]
+                },
+                {
+                    "variable_field_name": "name",
+                    "joinOperator": "AND",
+                    "operations": [
+                        {
+                            "operator": "like",
+                            "value": "A%"
+                        }
+                    ]
+                },
+                {
+                    "variable_field_name": "age",
+                    "joinOperator": "OR",
+                    "operations": [
+                        {
+                            "operator":"BETWEEN",
+                            "value": "18 AND 30"
+                        }
+                    ]
+                },
+                {
+                    "variable_field_name": "name",
+                    "joinOperator": "AND",
+                    "operations": [
+                        {
+                            "operator":"IN",
+                            "value": [
+                                "Reda",
+                                "Nabil",
+                                "Faycal"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "C",
+            "type": "SORT",
+            "transformObject": [
+                {
+                    "target": "age",
+                    "order": "ASC"
+                },
+                {
+                    "target": "name",
+                    "order": "ASC"
+                }
+            ]
+        },
+        {
+            "key": "D",
+            "type": "TEXT_TRANSFORMATION",
+            "transformObject": [
+                {
+                    "column": "name",
+                    "transformation": "UPPER"
+                },
+                {
+                    "column": "age",
+                    "transformation": "LOWER"
+                }                
+            ]
+        },
+        {
+            "key": "G",
+            "type": "GROUP",
+            "transformObject": [
+                {
+                    "target": "age",
+                    "function": "AVG"
+                }
+            ]
+        },
+        {
+            "key": "F",
+            "type": "FUNCTION",
+            "transformObject": [
+                {
+                    "target": "age",
+                    "function": "AVG"
+                },
+                {
+                    "target": "id",
+                    "function": "MIN"
+                }
+            ]
+        },                
+        {
+            "key": "E",
+            "type": "OUTPUT",
+            "transformObject": {
+                "limit": 100,
+                "offset": 0
+            }
+        }
+    ],
+    "edges": [
+        {
+            "from": "A",
+            "to": "B"
+        },
+        {
+            "from": "B",
+            "to": "C"
+        },
+        {
+            "from": "C",
+            "to": "D"
+        },
+        {
+            "from": "D",
+            "to": "E"
+        },
+        {
+            "from": "C",
+            "to": "G"
+        },
+        {
+            "from": "B",
+            "to": "E"
+        }
+    ]
+}

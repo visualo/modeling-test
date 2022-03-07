@@ -1,0 +1,1 @@
+WITH A as (SELECT id, name, age FROM users),B as (SELECT id, name, age FROM A  where age > 18  ),C as (SELECT id, name, age FROM B  Order by age ASC, name ASC),D as (SELECT id, UPPER(name) AS name, age FROM C),E as (SELECT  * FROM D limit 100 offset 0) SELECT  * FROM E;
